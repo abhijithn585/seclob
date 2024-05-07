@@ -64,20 +64,52 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Row(
                   children: [
                     Consumer<ApiProvider>(builder: (context, value, child) {
+                      print(
+                          '${value.datas!.map((e) => e.profilePic).toList()}');
                       // final userData = value.datas![0];
+                      final profile =
+                          value.datas!.map((e) => e.profilePic).toList();
+                      // print('${a[0]}');
+                      return profile.length == 0
+                          ? SizedBox(
+                              height: 100,
+                              width: 100,
+                              child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(50),
+                                  child: Image.asset(
+                                    'assets/images/blank-profile-picture-973460_1280.png',
+                                    fit: BoxFit.cover,
+                                  )
 
-                      return SizedBox(
-                        height: 100,
-                        width: 100,
-                        child: ClipRRect(
-                            borderRadius: BorderRadius.circular(50),
-                            child: const Text('')
-                            // Image.asset(
-                            //   '${userData.profilePic}',
-                            //   fit: BoxFit.cover,
-                            // ),
-                            ),
-                      );
+                                  //  const Text('')
+
+                                  //
+                                  ),
+                            )
+                          : SizedBox(
+                              height: 100,
+                              width: 100,
+                              child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(50),
+                                  child: Image.network(
+                                    '${profile[0]}',
+                                    fit: BoxFit.cover,
+                                  )
+
+                                  //  const Text('')
+
+                                  //
+                                  ),
+                            );
+
+                      // return CircleAvatar(
+                      //   backgroundImage: a.isNotEmpty
+                      //       ? Image.network(
+                      //           '${a[0]}',
+                      //           fit: BoxFit.cover,
+                      //         )
+                      //       : null,
+                      // );
                     }),
                     const Padding(
                       padding: EdgeInsets.only(left: 30, right: 10),
@@ -114,9 +146,17 @@ class _HomeScreenState extends State<HomeScreen> {
                   ],
                 ),
               ),
-              const Padding(
-                padding: EdgeInsets.only(left: 10),
-                child: Text('Rayan Moon'),
+              Padding(
+                padding: const EdgeInsets.only(left: 10),
+                child: Consumer<ApiProvider>(builder: (context, value, child) {
+                  final name = value.datas!.map((e) => e.firstName).toList();
+                  return name.length == 0
+                      ? Text('')
+                      : Text(
+                          '${name[0]}',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        );
+                }),
               ),
               const Padding(
                 padding: EdgeInsets.only(left: 10),
@@ -125,6 +165,10 @@ class _HomeScreenState extends State<HomeScreen> {
               const Padding(
                 padding: EdgeInsets.only(left: 10),
                 child: Text('You are beautiful, and'),
+              ),
+              const Padding(
+                padding: EdgeInsets.only(left: 10),
+                child: Text('Im here to capture it'),
               ),
               Row(
                 children: [

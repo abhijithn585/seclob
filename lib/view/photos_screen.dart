@@ -11,57 +11,62 @@ class PhotosScreen extends StatelessWidget {
       builder: (context, value, child) {
         return GridView.builder(
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 3, crossAxisSpacing: 1, mainAxisSpacing: 8),
+              crossAxisCount: 3, crossAxisSpacing: 6, mainAxisSpacing: 8),
           itemCount: value.datas!.length,
           itemBuilder: (context, index) {
             final data = value.datas![index];
-            return Stack(
-              children: [
-                SizedBox(
-                  height: 300,
-                  width: 300,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
-                    child: Image.network(
-                      '${data.filePath}',
-                      fit: BoxFit.cover,
+            print('${data.likeCount}');
+
+            return Padding(
+              padding: const EdgeInsets.only(bottom: 5),
+              child: Stack(
+                children: [
+                  SizedBox(
+                    height: 300,
+                    width: 300,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: Image.network(
+                        '${data.filePath}',
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        const Icon(
-                          Icons.favorite_border_sharp,
-                          color: Colors.white,
-                        ),
-                        Text(
-                          '${data.likeCount}',
-                          style: const TextStyle(color: Colors.white),
-                        ),
-                      ],
-                    ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        const Icon(
-                          Icons.mode_comment_outlined,
-                          color: Colors.white,
-                        ),
-                        Text(
-                          '${data.commentCount}',
-                          style: const TextStyle(color: Colors.white),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ],
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          const Icon(
+                            Icons.favorite_border_sharp,
+                            color: Colors.white,
+                          ),
+                          Text(
+                            '${data.likeCount}',
+                            style: const TextStyle(color: Colors.white),
+                          ),
+                        ],
+                      ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          const Icon(
+                            Icons.mode_comment_outlined,
+                            color: Colors.white,
+                          ),
+                          Text(
+                            '${data.commentCount}',
+                            style: const TextStyle(color: Colors.white),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             );
           },
         );
